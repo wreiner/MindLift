@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MindLift</string>
+
+    <string name="low_energy">Low Energy</string>
+    <string name="half_energy">Half Energy</string>
+    <string name="high_energy">High Energy</string>
 </resources>
