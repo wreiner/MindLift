@@ -6,11 +6,11 @@ import java.util.Date
 import javax.inject.Inject
 
 class EnergyLevelRecordRepository @Inject constructor(private val energyLevelRecordDao: EnergyLevelRecordDao) {
-    fun getAll(): List<EnergyLevelRecord> {
+    suspend fun getAll(): List<EnergyLevelRecord> {
         return energyLevelRecordDao.getAll()
     }
 
-    fun createAndInsertEnergyLevelRecord(level: Int) {
+    suspend fun createAndInsertEnergyLevelRecord(level: Int) {
         val energyLevelRecord = EnergyLevelRecord(
             null,
             level,

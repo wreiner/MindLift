@@ -9,14 +9,14 @@ import eu.sumindlift.mindlift.data.entity.EnergyLevelRecord
 @Dao
 interface EnergyLevelRecordDao {
     @Query("SELECT * FROM energy_level_records")
-    fun getAll(): List<EnergyLevelRecord>
+    suspend fun getAll(): List<EnergyLevelRecord>
 
     @Query("SELECT * FROM energy_level_records WHERE id IN (:ids)")
-    fun loadAllByIds(ids: IntArray): List<EnergyLevelRecord>
+    suspend fun loadAllByIds(ids: IntArray): List<EnergyLevelRecord>
 
     @Insert
-    fun insertAll(vararg tests: EnergyLevelRecord)
+    suspend fun insertAll(vararg tests: EnergyLevelRecord)
 
     @Delete
-    fun delete(test: EnergyLevelRecord)
+    suspend fun delete(test: EnergyLevelRecord)
 }

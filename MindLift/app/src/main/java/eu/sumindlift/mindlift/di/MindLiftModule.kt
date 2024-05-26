@@ -22,7 +22,7 @@ object MindLiftModule {
             appContext,
             MindLiftDatabase::class.java,
             "mindlift"
-        ).allowMainThreadQueries().build()
+        ).build()
     }
     @Provides
     @Singleton
