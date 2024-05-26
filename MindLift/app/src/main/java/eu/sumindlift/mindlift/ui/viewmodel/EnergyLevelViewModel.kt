@@ -17,7 +17,7 @@ class EnergyLevelViewModel @Inject constructor(private val repository: EnergyLev
     val onLoading: Boolean
     get() = _onLoading
 
-    fun insertTest(level: Int) {
+    fun newEnergyLevelRecord(level: Int) {
         viewModelScope.launch {
             _onLoading = true
             repository.createAndInsertEnergyLevelRecord(level)

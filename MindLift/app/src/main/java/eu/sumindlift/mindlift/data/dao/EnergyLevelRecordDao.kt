@@ -15,7 +15,7 @@ interface EnergyLevelRecordDao {
     suspend fun loadAllByIds(ids: IntArray): List<EnergyLevelRecord>
 
     @Insert
-    suspend fun insertAll(vararg tests: EnergyLevelRecord)
+    suspend fun insert(energyLevelRecord: EnergyLevelRecord)
 
     @Delete
     suspend fun delete(test: EnergyLevelRecord)

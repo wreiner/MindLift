@@ -73,15 +73,15 @@ fun EnergyLevelChooser(
         EnergyCard(
             cardText = R.string.low_energy,
             energyLevel = 0,
-            onClick = { viewModel.insertTest(0) })
+            onClick = { viewModel.newEnergyLevelRecord(0) })
         EnergyCard(
             cardText = R.string.half_energy,
             energyLevel = 50,
-            onClick = { viewModel.insertTest(50) })
+            onClick = { viewModel.newEnergyLevelRecord(50) })
         EnergyCard(
             cardText = R.string.high_energy,
             energyLevel = 100,
-            onClick = { viewModel.insertTest(100) })
+            onClick = { viewModel.newEnergyLevelRecord(100) })
     }
 }
 

@@ -17,7 +17,7 @@ class EnergyLevelRecordRepository @Inject constructor(private val energyLevelRec
             "",
             Date().toString()
         )
-        return energyLevelRecordDao.insertAll(energyLevelRecord)
+        return energyLevelRecordDao.insert(energyLevelRecord)
     }
 
 }
