@@ -29,9 +29,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import eu.sumindlift.mindlift.ui.theme.MindLiftTheme
+import eu.sumindlift.mindlift.ui.viewmodel.EnergyLevelViewModel
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,14 +64,24 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun EnergyLevelChooser(
-    modifier: Modifier = Modifier
+    viewModel: EnergyLevelViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier,
 ) {
-    Column (
+    Column(
         modifier = modifier
     ) {
-        EnergyCard(cardText = R.string.low_energy, batteryLevel = 0)
-        EnergyCard(cardText = R.string.half_energy, batteryLevel = 50)
-        EnergyCard(cardText = R.string.high_energy, batteryLevel = 100)
+        EnergyCard(
+            cardText = R.string.low_energy,
+            energyLevel = 0,
+            onClick = { viewModel.newEnergyLevelRecord(0) })
+        EnergyCard(
+            cardText = R.string.half_energy,
+            energyLevel = 50,
+            onClick = { viewModel.newEnergyLevelRecord(50) })
+        EnergyCard(
+            cardText = R.string.high_energy,
+            energyLevel = 100,
+            onClick = { viewModel.newEnergyLevelRecord(100) })
     }
 }
 
@@ -74,28 +89,30 @@ fun EnergyLevelChooser(
 @Composable
 fun EnergyCard(
     @StringRes cardText: Int,
-    batteryLevel: Int,
-    modifier: Modifier = Modifier
+    energyLevel: Int,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
-    Card (
+    Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         modifier = modifier
-            .padding(8.dp)
+            .padding(8.dp),
+        onClick = onClick
     ) {
-        Row (
+        Row(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(48.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            val icon = when (batteryLevel) {
+            val icon = when (energyLevel) {
                 in 0..25 -> R.drawable.battery_25
                 in 26..95 -> R.drawable.battery_50
                 in 96..100 -> R.drawable.battery_100
                 else -> R.drawable.battery_25
             }
-            val color = when (batteryLevel) {
+            val color = when (energyLevel) {
                 in 0..20 -> Color.Red
                 in 41..60 -> Color.Yellow
                 in 96..100 -> Color.Green
@@ -110,7 +127,7 @@ fun EnergyCard(
             )
             Icon(
                 imageVector = ImageVector.vectorResource(id = icon),
-                contentDescription = "Battery Level",
+                contentDescription = "Energy Level",
                 tint = color,
                 modifier = Modifier
                     .height(48.dp),
