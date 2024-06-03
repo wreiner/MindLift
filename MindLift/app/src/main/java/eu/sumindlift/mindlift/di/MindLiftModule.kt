@@ -7,8 +7,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import eu.sumindlift.mindlift.data.dao.CopingStrategyDao
 import eu.sumindlift.mindlift.data.dao.EnergyLevelRecordDao
 import eu.sumindlift.mindlift.data.db.MindLiftDatabase
+import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import eu.sumindlift.mindlift.data.repository.EnergyLevelRecordRepository
 import javax.inject.Singleton
 
@@ -26,12 +28,23 @@ object MindLiftModule {
     }
     @Provides
     @Singleton
-    fun provideDao(appDatabase: MindLiftDatabase) : EnergyLevelRecordDao {
+    fun provideEnergyLevelRecordDao(appDatabase: MindLiftDatabase) : EnergyLevelRecordDao {
         return appDatabase.energyLevelRecordDao()
     }
     @Provides
     @Singleton
-    fun provideTaskRepository(taskDao: EnergyLevelRecordDao): EnergyLevelRecordRepository {
-        return EnergyLevelRecordRepository(taskDao)
+    fun provideEnergyLevelRecordRepository(energyLevelRecordDao: EnergyLevelRecordDao): EnergyLevelRecordRepository {
+        return EnergyLevelRecordRepository(energyLevelRecordDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCopingStrategyDao(appDatabase: MindLiftDatabase) : CopingStrategyDao {
+        return appDatabase.copingStrategyDao()
+    }
+    @Provides
+    @Singleton
+    fun provideCopingStrategyRepository(copingStrategyDao: CopingStrategyDao): CopingStrategyRepository {
+        return CopingStrategyRepository(copingStrategyDao)
     }
 }
