@@ -81,7 +81,10 @@ fun MindLiftNavHost(
         ) {
             composable(route = Screens.Home.route) {
                 HomeScreen(drawerState = drawerState, coroutineScope = coroutineScope)
-            }g
+            }
+            composable(route = Screens.AddCopingStrategy.route) {
+                AddCopingStrategyScreen(drawerState = drawerState, coroutineScope = coroutineScope)
+            }
         }
     }
 }
