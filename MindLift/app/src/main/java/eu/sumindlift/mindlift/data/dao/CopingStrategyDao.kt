@@ -14,6 +14,9 @@ interface CopingStrategyDao {
     @Query("SELECT * FROM coping_strategies WHERE id IN (:ids)")
     suspend fun loadAllByIds(ids: IntArray): List<CopingStrategy>
 
+    @Query("SELECT * FROM coping_strategies ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandom(): CopingStrategy
+
     @Insert
     suspend fun insert(copingStrategy: CopingStrategy)
 

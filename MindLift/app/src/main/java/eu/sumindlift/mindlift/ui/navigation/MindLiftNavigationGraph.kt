@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import eu.sumindlift.mindlift.ui.screen.AddCopingStrategyScreen
+import eu.sumindlift.mindlift.ui.screen.GetCopingStrategyScreen
 import eu.sumindlift.mindlift.ui.screen.HomeScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -30,7 +31,9 @@ data class DrawerMenu(
 
 val menus = arrayOf(
     DrawerMenu(Icons.Filled.Home, "Home", Screens.Home.route),
-    DrawerMenu(Icons.Filled.Add, "Add Coping Strategy", Screens.AddCopingStrategy.route)
+    DrawerMenu(Icons.Filled.Add, "Add Coping Strategy", Screens.AddCopingStrategy.route),
+    DrawerMenu(Icons.Filled.Add, "Get Coping Strategy", Screens.GetCopingStrategy.route)
+//    TODO: Customize menu item for getting a coping strategy
 )
 
 @Composable
@@ -84,6 +87,9 @@ fun MindLiftNavHost(
             }
             composable(route = Screens.AddCopingStrategy.route) {
                 AddCopingStrategyScreen(drawerState = drawerState, coroutineScope = coroutineScope)
+            }
+            composable(route = Screens.GetCopingStrategy.route) {
+                GetCopingStrategyScreen(drawerState = drawerState, coroutineScope = coroutineScope)
             }
         }
     }
