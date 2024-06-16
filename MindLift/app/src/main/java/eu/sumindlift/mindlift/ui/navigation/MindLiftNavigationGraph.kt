@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.Icon
@@ -32,8 +33,7 @@ data class DrawerMenu(
 val menus = arrayOf(
     DrawerMenu(Icons.Filled.Home, "Home", Screens.Home.route),
     DrawerMenu(Icons.Filled.Add, "Add Coping Strategy", Screens.AddCopingStrategy.route),
-    DrawerMenu(Icons.Filled.Add, "Get Coping Strategy", Screens.GetCopingStrategy.route)
-//    TODO: Customize menu item for getting a coping strategy
+    DrawerMenu(Icons.Filled.Favorite, "Get Coping Strategy", Screens.GetCopingStrategy.route)
 )
 
 @Composable
@@ -83,7 +83,11 @@ fun MindLiftNavHost(
             modifier = modifier
         ) {
             composable(route = Screens.Home.route) {
-                HomeScreen(drawerState = drawerState, coroutineScope = coroutineScope)
+                HomeScreen(drawerState = drawerState, coroutineScope = coroutineScope) {
+                    navController.navigate(
+                        Screens.GetCopingStrategy.route
+                    )
+                }
             }
             composable(route = Screens.AddCopingStrategy.route) {
                 AddCopingStrategyScreen(drawerState = drawerState, coroutineScope = coroutineScope)

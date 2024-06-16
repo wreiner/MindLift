@@ -13,7 +13,8 @@ import kotlinx.coroutines.CoroutineScope
 fun HomeScreen(
     modifier: Modifier = Modifier,
     drawerState: DrawerState,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
+    onNavigateToGetCopingStrategy: () -> Unit
 ) {
     Scaffold(
         modifier = modifier,

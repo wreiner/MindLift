@@ -60,9 +60,10 @@ fun GetCopingStrategy(
                 text = "Your Coping Strategy",
             style = MaterialTheme.typography.headlineSmall
         )
+        Spacer(modifier = Modifier.padding(16.dp))
+        Text(text = strategy.title, fontWeight = FontWeight.Black)
         Spacer(modifier = Modifier.padding(8.dp))
-        Text(text = strategy.title)
-
+        Text(text = "Description: " + strategy.description)
     }
 }
 
