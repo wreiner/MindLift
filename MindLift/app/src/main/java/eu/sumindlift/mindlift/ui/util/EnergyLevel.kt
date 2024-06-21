@@ -30,6 +30,14 @@ import eu.sumindlift.mindlift.data.entity.EnergyLevel
 import eu.sumindlift.mindlift.ui.theme.MindLiftTheme
 import eu.sumindlift.mindlift.ui.viewmodel.EnergyLevelViewModel
 
+
+//custom color for batteriees
+
+
+val CustomRed = Color(0xFFD7504D)
+val CustomYellow = Color(0xFFE7BC40)
+val CustomGreen = Color(0xFF63A002)
+val CustomGray = Color(0xFF91918B)
 @Composable
 fun EnergyLevelChooser(
     modifier: Modifier = Modifier,
@@ -80,10 +88,10 @@ fun EnergyCard(
                 else -> R.drawable.battery_25
             }
             val color = when (energyLevel) {
-                in 0..20 -> Color.Red
-                in 41..60 -> Color.Yellow
-                in 96..100 -> Color.Green
-                else -> Color.Gray
+                in 0..20 -> CustomRed
+                in 41..60 -> CustomYellow
+                in 96..100 -> CustomGreen
+                else -> CustomGray
             }
 
             Text(
