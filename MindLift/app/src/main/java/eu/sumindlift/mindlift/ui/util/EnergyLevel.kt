@@ -44,12 +44,13 @@ fun EnergyLevelChooser(
     viewModel: EnergyLevelViewModel = hiltViewModel(),
 ) {
     Column(
-        modifier = modifier.padding(8.dp)
+        modifier = modifier.padding(10.dp)
     ) {
         Text(
             fontWeight = FontWeight.Bold,
-            text = "How do you feel?",
-            style = MaterialTheme.typography.headlineSmall
+            text = stringResource(id = R.string.feeling_q), // Use string resource
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.align(Alignment.CenterHorizontally) // Center text horizontally
         )
         EnergyLevel.entries.forEach {
             EnergyCard(
@@ -71,7 +72,7 @@ fun EnergyCard(
 ) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        modifier = modifier.padding(8.dp),
+        modifier = modifier.padding(10.dp),
         onClick = onClick
     ) {
         Row(
