@@ -52,7 +52,7 @@ fun EnergyLevelChooser(
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.align(Alignment.CenterHorizontally) // Center text horizontally
         )
-        EnergyLevel.entries.forEach {
+        EnergyLevel.entries.reversed().forEach {
             EnergyCard(
                 cardText = it.getTitleResourceId(),
                 energyLevel = it.getBatteryLevel(),
