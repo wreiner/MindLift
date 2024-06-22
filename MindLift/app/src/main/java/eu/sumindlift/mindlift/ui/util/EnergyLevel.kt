@@ -34,14 +34,12 @@ import eu.sumindlift.mindlift.ui.theme.MindLiftTheme
 import eu.sumindlift.mindlift.ui.viewmodel.EnergyLevelViewModel
 import eu.sumindlift.mindlift.ui.viewmodel.GetCopingStrategyViewModel
 
-
 //custom color for batteriees
-
-
 val CustomRed = Color(0xFFD7504D)
 val CustomYellow = Color(0xFFE7BC40)
 val CustomGreen = Color(0xFF63A002)
 val CustomGray = Color(0xFF91918B)
+
 @Composable
 fun EnergyLevelChooser(
     modifier: Modifier = Modifier,
@@ -58,7 +56,7 @@ fun EnergyLevelChooser(
             modifier = Modifier
                 .padding(16.dp)
                 .align(Alignment.CenterHorizontally) // Center text horizontally
-        )}
+        )
         EnergyLevel.entries.reversed().forEach {
             EnergyCard(
                 cardText = it.getTitleResourceId(),
@@ -71,7 +69,6 @@ fun EnergyLevelChooser(
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
