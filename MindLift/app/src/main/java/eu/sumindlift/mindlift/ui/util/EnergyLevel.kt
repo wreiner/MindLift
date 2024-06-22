@@ -25,15 +25,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import eu.sumindlift.mindlift.R
+import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
+import eu.sumindlift.mindlift.ui.navigation.Screens
 import eu.sumindlift.mindlift.ui.theme.MindLiftTheme
 import eu.sumindlift.mindlift.ui.viewmodel.EnergyLevelViewModel
+import eu.sumindlift.mindlift.ui.viewmodel.GetCopingStrategyViewModel
 
 @Composable
 fun EnergyLevelChooser(
     modifier: Modifier = Modifier,
-    viewModel: EnergyLevelViewModel = hiltViewModel(),
+    energyLevelViewModel: EnergyLevelViewModel = hiltViewModel(),
+    navController: NavController,
 ) {
     Column(
         modifier = modifier.padding(8.dp)
@@ -47,7 +52,10 @@ fun EnergyLevelChooser(
             EnergyCard(
                 cardText = it.getTitleResourceId(),
                 energyLevel = it.getBatteryLevel(),
-                onClick = { viewModel.newEnergyLevelRecord(it.getBatteryLevel()) }
+                onClick = {
+                    energyLevelViewModel.newEnergyLevelRecord(it.getId())
+                    navController.navigate("getCopingStrategy/${it.getId()}")
+                }
             )
         }
     }
@@ -101,7 +109,6 @@ fun EnergyCard(
             )
         }
     }
-
 }
 
 @Preview(showBackground = true)

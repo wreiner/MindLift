@@ -1,5 +1,6 @@
 package eu.sumindlift.mindlift.ui.util
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,6 +36,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import eu.sumindlift.mindlift.ui.viewmodel.AddCopingStrategyViewModel
@@ -45,14 +48,15 @@ import eu.sumindlift.mindlift.ui.viewmodel.GetCopingStrategyViewModel
 fun GetCopingStrategy(
     modifier: Modifier = Modifier,
     viewModel: GetCopingStrategyViewModel = hiltViewModel(),
+    navController: NavController,
+    energyLevel: Int
 ) {
     Column(
         modifier = modifier
             .padding(8.dp)
             .verticalScroll(rememberScrollState())
     ) {
-
-        viewModel.getCopingStrategy()
+        viewModel.getCopingStrategy(energyLevel)
         val strategy = viewModel.strategy
 
         Text(
@@ -70,5 +74,6 @@ fun GetCopingStrategy(
 @Preview(showBackground = true)
 @Composable
 fun GetCopingStrategyPreview() {
-    GetCopingStrategy()
+    val navController = rememberNavController()
+    GetCopingStrategy(navController = navController, energyLevel = 1)
 }

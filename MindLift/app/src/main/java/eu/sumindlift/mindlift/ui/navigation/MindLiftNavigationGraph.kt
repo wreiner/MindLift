@@ -16,8 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import eu.sumindlift.mindlift.ui.screen.AddCopingStrategyScreen
 import eu.sumindlift.mindlift.ui.screen.GetCopingStrategyScreen
 import eu.sumindlift.mindlift.ui.screen.HomeScreen
@@ -32,8 +35,7 @@ data class DrawerMenu(
 
 val menus = arrayOf(
     DrawerMenu(Icons.Filled.Home, "Home", Screens.Home.route),
-    DrawerMenu(Icons.Filled.Add, "Add Coping Strategy", Screens.AddCopingStrategy.route),
-    DrawerMenu(Icons.Filled.Favorite, "Get Coping Strategy", Screens.GetCopingStrategy.route)
+    DrawerMenu(Icons.Filled.Add, "Add Coping Strategy", Screens.AddCopingStrategy.route)
 )
 
 @Composable
@@ -83,17 +85,30 @@ fun MindLiftNavHost(
             modifier = modifier
         ) {
             composable(route = Screens.Home.route) {
-                HomeScreen(drawerState = drawerState, coroutineScope = coroutineScope) {
-                    navController.navigate(
-                        Screens.GetCopingStrategy.route
-                    )
-                }
+                HomeScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
+                    navController = navController
+                )
             }
             composable(route = Screens.AddCopingStrategy.route) {
                 AddCopingStrategyScreen(drawerState = drawerState, coroutineScope = coroutineScope)
             }
-            composable(route = Screens.GetCopingStrategy.route) {
-                GetCopingStrategyScreen(drawerState = drawerState, coroutineScope = coroutineScope)
+
+            composable(
+                route = "getCopingStrategy/{energyLevel}",
+                arguments = listOf(
+                    navArgument("energyLevel") { type = NavType.IntType }
+                )
+            ) { navBackStackEntry ->
+                val energyLevel = navBackStackEntry.arguments?.getInt("energyLevel") ?: 1
+
+                GetCopingStrategyScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
+                    navController = navController,
+                    energyLevel = energyLevel
+                )
             }
         }
     }

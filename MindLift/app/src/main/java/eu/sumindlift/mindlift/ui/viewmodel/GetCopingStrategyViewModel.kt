@@ -35,12 +35,14 @@ class GetCopingStrategyViewModel @Inject constructor(private val repository: Cop
     private var _onLoading by mutableStateOf(false)
     val onLoading: Boolean = _onLoading
 
-    fun getCopingStrategy() {
+    fun getCopingStrategy(energyLevel: Int) {
         viewModelScope.launch {
             _onLoading = true
-            strategy = repository.getRandomCopingStrategy()
+            val newStrategy = repository.getRandomCopingStrategyWithEnergyLevel(energyLevel) ?: null
+            if (newStrategy != null) {
+                strategy = newStrategy
+            }
             _onLoading = false
         }
     }
-
 }

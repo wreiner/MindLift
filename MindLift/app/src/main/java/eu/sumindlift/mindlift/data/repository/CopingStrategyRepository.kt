@@ -10,8 +10,8 @@ class CopingStrategyRepository @Inject constructor(private val copingStrategyDao
         return copingStrategyDao.getAll()
     }
 
-    suspend fun getRandomCopingStrategyWithEnergyLevel(energyLevel: EnergyLevel): CopingStrategy {
-        return copingStrategyDao.getRandomWithEnergyLevel(energyLevel.getId())
+    suspend fun getRandomCopingStrategyWithEnergyLevel(energyLevel: Int): CopingStrategy {
+        return copingStrategyDao.getRandomWithEnergyLevel(energyLevel)
     }
 
     suspend fun getRandomCopingStrategy(): CopingStrategy {
