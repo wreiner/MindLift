@@ -4,4 +4,10 @@
     <string name="low_energy">Low Energy</string>
     <string name="half_energy">Half Energy</string>
     <string name="high_energy">High Energy</string>
+    <string name="feeling_q">How are you feeling today?</string>
+    <string name="add_strategy">Add Your Coping Strategy</string>
+    <string name="add_strat_title">Title</string>
+    <string name="descr">Description</string>
+    <string name="energy_level">Energy Level</string>
+    <string name="save">Save</string>
 </resources>

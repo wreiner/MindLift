@@ -8,12 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,28 +25,47 @@ import eu.sumindlift.mindlift.data.entity.EnergyLevel
 import eu.sumindlift.mindlift.ui.theme.MindLiftTheme
 import eu.sumindlift.mindlift.ui.viewmodel.EnergyLevelViewModel
 
+
+//custom color for batteriees
+
+
+val CustomRed = Color(0xFFD7504D)
+val CustomYellow = Color(0xFFE7BC40)
+val CustomGreen = Color(0xFF63A002)
+val CustomGray = Color(0xFF91918B)
 @Composable
 fun EnergyLevelChooser(
     modifier: Modifier = Modifier,
     viewModel: EnergyLevelViewModel = hiltViewModel(),
 ) {
     Column(
-        modifier = modifier.padding(8.dp)
+        modifier = modifier.padding(10.dp)
     ) {
-        Text(
-            fontWeight = FontWeight.Bold,
-            text = "How do you feel?",
-            style = MaterialTheme.typography.headlineSmall
-        )
-        EnergyLevel.entries.forEach {
-            EnergyCard(
-                cardText = it.getTitleResourceId(),
-                energyLevel = it.getBatteryLevel(),
-                onClick = { viewModel.newEnergyLevelRecord(it.getBatteryLevel()) }
-            )
+        Surface(
+            color = Color.Transparent,
+            shape = MaterialTheme.shapes.medium,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Text(
+                fontWeight = FontWeight.Bold,
+                text = stringResource(id = R.string.feeling_q), // Use string resource
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.CenterHorizontally) // Center text horizontally
+            )}
+            EnergyLevel.entries.reversed().forEach {
+                EnergyCard(
+                    cardText = it.getTitleResourceId(),
+                    energyLevel = it.getBatteryLevel(),
+                    onClick = { viewModel.newEnergyLevelRecord(it.getBatteryLevel()) }
+                )
+            }
         }
     }
-}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,7 +77,7 @@ fun EnergyCard(
 ) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        modifier = modifier.padding(8.dp),
+        modifier = modifier.padding(10.dp),
         onClick = onClick
     ) {
         Row(
@@ -80,10 +94,10 @@ fun EnergyCard(
                 else -> R.drawable.battery_25
             }
             val color = when (energyLevel) {
-                in 0..20 -> Color.Red
-                in 41..60 -> Color.Yellow
-                in 96..100 -> Color.Green
-                else -> Color.Gray
+                in 0..20 -> CustomRed
+                in 41..60 -> CustomYellow
+                in 96..100 -> CustomGreen
+                else -> CustomGray
             }
 
             Text(
