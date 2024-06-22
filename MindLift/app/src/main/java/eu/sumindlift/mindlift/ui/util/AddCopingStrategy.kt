@@ -1,13 +1,7 @@
 package eu.sumindlift.mindlift.ui.util
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -35,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import eu.sumindlift.mindlift.R
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
 import eu.sumindlift.mindlift.ui.viewmodel.AddCopingStrategyViewModel
 
@@ -55,11 +50,11 @@ fun AddCopingStrategy(
         var expanded by remember { mutableStateOf(false) }
         Text(
             fontWeight = FontWeight.Bold,
-            text = "Add Coping Strategy",
+            text = stringResource(id = R.string.add_strategy),
             style = MaterialTheme.typography.headlineSmall
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        Text(text = "Title")
+        Text(text = stringResource(id = R.string.add_strat_title))
         TextField(
             value = title,
             onValueChange = { title = it },
@@ -67,7 +62,7 @@ fun AddCopingStrategy(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        Text(text = "Description")
+        Text(text = stringResource(id = R.string.descr))
         TextField(
             value = description,
             onValueChange = { description = it },
@@ -75,7 +70,7 @@ fun AddCopingStrategy(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        Text(text = "Energy Level")
+        Text(text = stringResource(id = R.string.energy_level))
         /*Box(modifier = Modifier
             .fillMaxSize()
             .clickable { expanded = true }
@@ -135,17 +130,24 @@ fun AddCopingStrategy(
             }
         }
         Spacer(modifier = Modifier.padding(8.dp))
-        Button(
-            onClick = {
-                if (title.isNotBlank() && description.isNotBlank()) {
-                    viewModel.newCopingStrategy(title, description, energyLevel)
-                    title = ""
-                    description = ""
-                    energyLevel = EnergyLevel.LOW
-                }
-            }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-            Text("Save")
+            Button(
+                onClick = {
+                    if (title.isNotBlank() && description.isNotBlank()) {
+                        viewModel.newCopingStrategy(title, description, energyLevel)
+                        title = ""
+                        description = ""
+                        energyLevel = EnergyLevel.LOW
+                    }
+                }
+            ) {
+                Text(text = stringResource(id = R.string.save))
+            }
         }
     }
 }

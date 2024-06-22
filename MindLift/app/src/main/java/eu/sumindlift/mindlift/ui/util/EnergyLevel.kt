@@ -34,21 +34,32 @@ import eu.sumindlift.mindlift.ui.theme.MindLiftTheme
 import eu.sumindlift.mindlift.ui.viewmodel.EnergyLevelViewModel
 import eu.sumindlift.mindlift.ui.viewmodel.GetCopingStrategyViewModel
 
+
+//custom color for batteriees
+
+
+val CustomRed = Color(0xFFD7504D)
+val CustomYellow = Color(0xFFE7BC40)
+val CustomGreen = Color(0xFF63A002)
+val CustomGray = Color(0xFF91918B)
 @Composable
 fun EnergyLevelChooser(
     modifier: Modifier = Modifier,
     energyLevelViewModel: EnergyLevelViewModel = hiltViewModel(),
-    navController: NavController,
+    navController: NavController
 ) {
     Column(
-        modifier = modifier.padding(8.dp)
+        modifier = modifier.padding(10.dp)
     ) {
         Text(
             fontWeight = FontWeight.Bold,
-            text = "How do you feel?",
-            style = MaterialTheme.typography.headlineSmall
-        )
-        EnergyLevel.entries.forEach {
+            text = stringResource(id = R.string.feeling_q), // Use string resource
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier
+                .padding(16.dp)
+                .align(Alignment.CenterHorizontally) // Center text horizontally
+        )}
+        EnergyLevel.entries.reversed().forEach {
             EnergyCard(
                 cardText = it.getTitleResourceId(),
                 energyLevel = it.getBatteryLevel(),
@@ -61,6 +72,7 @@ fun EnergyLevelChooser(
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EnergyCard(
@@ -71,7 +83,7 @@ fun EnergyCard(
 ) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        modifier = modifier.padding(8.dp),
+        modifier = modifier.padding(10.dp),
         onClick = onClick
     ) {
         Row(
@@ -88,10 +100,10 @@ fun EnergyCard(
                 else -> R.drawable.battery_25
             }
             val color = when (energyLevel) {
-                in 0..20 -> Color.Red
-                in 41..60 -> Color.Yellow
-                in 96..100 -> Color.Green
-                else -> Color.Gray
+                in 0..20 -> CustomRed
+                in 41..60 -> CustomYellow
+                in 96..100 -> CustomGreen
+                else -> CustomGray
             }
 
             Text(
