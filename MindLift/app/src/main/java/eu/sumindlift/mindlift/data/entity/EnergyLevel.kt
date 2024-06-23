@@ -24,4 +24,9 @@ enum class EnergyLevel {
     abstract fun getTitleResourceId(): Int;
     abstract fun getBatteryLevel(): Int;
 
+    companion object {
+        fun fromId(id: Int): EnergyLevel {
+            return entries.first { it.getId() == id }
+        }
+    }
 }

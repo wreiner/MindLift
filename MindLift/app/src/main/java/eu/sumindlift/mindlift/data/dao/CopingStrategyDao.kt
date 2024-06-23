@@ -5,9 +5,13 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import eu.sumindlift.mindlift.data.entity.CopingStrategy
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CopingStrategyDao {
+    @Query("SELECT * FROM coping_strategies ORDER BY energy_level ASC")
+    fun getAllFlow(): Flow<List<CopingStrategy>>
+
     @Query("SELECT * FROM coping_strategies")
     suspend fun getAll(): List<CopingStrategy>
 
