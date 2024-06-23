@@ -48,12 +48,15 @@ fun AddCopingStrategy(
         var description by rememberSaveable { mutableStateOf("") }
         var energyLevel by rememberSaveable { mutableStateOf(EnergyLevel.LOW) }
         var expanded by remember { mutableStateOf(false) }
+
         Text(
             fontWeight = FontWeight.Bold,
             text = stringResource(id = R.string.add_strategy),
             style = MaterialTheme.typography.headlineSmall
         )
+
         Spacer(modifier = Modifier.padding(8.dp))
+
         Text(text = stringResource(id = R.string.add_strat_title))
         TextField(
             value = title,
@@ -61,15 +64,21 @@ fun AddCopingStrategy(
             isError = title.isBlank(),
             modifier = Modifier.fillMaxWidth()
         )
+
         Spacer(modifier = Modifier.padding(8.dp))
+
         Text(text = stringResource(id = R.string.descr))
         TextField(
             value = description,
+            minLines = 5,
+            maxLines = 10,
             onValueChange = { description = it },
             isError = description.isBlank(),
             modifier = Modifier.fillMaxWidth()
         )
+
         Spacer(modifier = Modifier.padding(8.dp))
+
         Text(text = stringResource(id = R.string.energy_level))
         /*Box(modifier = Modifier
             .fillMaxSize()
