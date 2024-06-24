@@ -15,12 +15,16 @@ class ViewModelFactory(
                 .newInstance(energyLevelRecordRepository)
         }
         if (modelClass.isAssignableFrom(AddCopingStrategyViewModel::class.java)) {
-            return modelClass.getDeclaredConstructor(AddCopingStrategyViewModel::class.java)
+            return modelClass.getDeclaredConstructor(CopingStrategyRepository::class.java)
                 .newInstance(copingStrategyRepository)
         }
         if (modelClass.isAssignableFrom(GetCopingStrategyViewModel::class.java)) {
-            return modelClass.getDeclaredConstructor(GetCopingStrategyViewModel::class.java)
+            return modelClass.getDeclaredConstructor(CopingStrategyRepository::class.java)
                 .newInstance(copingStrategyRepository)
+        }
+        if (modelClass.isAssignableFrom(EnergyLevelProgressViewModel::class.java)) {
+            return modelClass.getDeclaredConstructor(EnergyLevelRecordRepository::class.java)
+                .newInstance(energyLevelRecordRepository)
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }

@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "eu.sumindlift.mindlift"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -105,4 +105,7 @@ dependencies {
     ksp("com.google.dagger:dagger-compiler:2.48.1")
     ksp("com.google.dagger:hilt-android-compiler:2.48.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    //charts
+    implementation("co.yml:ycharts:2.1.0")
 }

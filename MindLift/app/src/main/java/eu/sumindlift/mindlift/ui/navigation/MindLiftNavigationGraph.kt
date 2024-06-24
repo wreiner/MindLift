@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.DrawerState
@@ -23,6 +24,7 @@ import androidx.navigation.navArgument
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import eu.sumindlift.mindlift.ui.screen.AddCopingStrategyScreen
 import eu.sumindlift.mindlift.ui.screen.CopingStrategyListScreen
+import eu.sumindlift.mindlift.ui.screen.EnergyLevelProgressScreen
 import eu.sumindlift.mindlift.ui.screen.GetCopingStrategyScreen
 import eu.sumindlift.mindlift.ui.screen.HomeScreen
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +39,8 @@ data class DrawerMenu(
 val menus = arrayOf(
     DrawerMenu(Icons.Filled.Home, "Home", Screens.Home.route),
     DrawerMenu(Icons.Filled.Add, "Add Coping Strategy", Screens.AddCopingStrategy.route),
-    DrawerMenu(Icons.Filled.List, "List Coping Strategies", Screens.ListCopingStrategies.route)
+    DrawerMenu(Icons.Filled.List, "List Coping Strategies", Screens.ListCopingStrategies.route),
+    DrawerMenu(Icons.Filled.CheckCircle, "Energy Level Progress", Screens.EnergyLevelProgress.route),
 )
 
 @Composable
@@ -141,6 +144,14 @@ fun MindLiftNavHost(
                     drawerState = drawerState,
                     coroutineScope = coroutineScope,
                     copingStrategyRepository = copingStrategyRepository,
+                    navController = navController
+                )
+            }
+
+            composable(route = Screens.EnergyLevelProgress.route) {
+                EnergyLevelProgressScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
                     navController = navController
                 )
             }

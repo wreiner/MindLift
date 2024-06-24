@@ -11,6 +11,9 @@ interface EnergyLevelRecordDao {
     @Query("SELECT * FROM energy_level_records")
     suspend fun getAll(): List<EnergyLevelRecord>
 
+    @Query("SELECT * FROM energy_level_records ORDER BY timestamp DESC LIMIT :limit")
+    suspend fun getAllDescendingAndLimit(limit: Int): List<EnergyLevelRecord>
+
     @Insert
     suspend fun insert(energyLevelRecord: EnergyLevelRecord)
 
