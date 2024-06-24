@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import eu.sumindlift.mindlift.R
+import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import eu.sumindlift.mindlift.ui.viewmodel.AddCopingStrategyViewModel
@@ -59,6 +61,18 @@ fun GetCopingStrategy(
     ) {
         viewModel.getCopingStrategy(energyLevel)
         val strategy by viewModel.strategy.collectAsState()
+
+        // If the strategy is empty, set the default values
+        if (strategy.title.isEmpty() && strategy.description.isEmpty()) {
+            viewModel.setStrategy(
+                CopingStrategy(
+                    id = 424242424,
+                    title = stringResource(id = R.string.example_coping_strategy_title),
+                    description = stringResource(id = R.string.example_coping_strategy_description),
+                    energyLevel = EnergyLevel.LOW.getId()
+                )
+            )
+        }
 
         Text(
             fontWeight = FontWeight.Bold,

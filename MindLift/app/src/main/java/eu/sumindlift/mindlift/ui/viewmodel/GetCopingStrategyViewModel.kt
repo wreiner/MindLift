@@ -13,12 +13,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eu.sumindlift.mindlift.R
 import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
@@ -34,14 +36,13 @@ import javax.inject.Inject
 @HiltViewModel
 class GetCopingStrategyViewModel @Inject constructor(private val repository: CopingStrategyRepository) : ViewModel() {
 
-    private val _strategy = MutableStateFlow(CopingStrategy(42, "example", "example", EnergyLevel.LOW.getId()))
+    private val _strategy = MutableStateFlow(CopingStrategy())
     val strategy: StateFlow<CopingStrategy> = _strategy
 
     private var _onLoading by mutableStateOf(false)
     val onLoading: Boolean = _onLoading
 
     fun getCopingStrategy(energyLevel: Int) {
-
         viewModelScope.launch {
             _onLoading = true
             val newStrategy = repository.getRandomCopingStrategyWithEnergyLevel(energyLevel)
@@ -50,5 +51,9 @@ class GetCopingStrategyViewModel @Inject constructor(private val repository: Cop
             }
             _onLoading = false
         }
+    }
+
+    fun setStrategy(strategy: CopingStrategy) {
+        _strategy.value = strategy
     }
 }
