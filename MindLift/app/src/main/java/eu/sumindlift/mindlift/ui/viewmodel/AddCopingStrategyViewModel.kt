@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddCopingStrategyViewModel @Inject constructor(private val repository: CopingStrategyRepository) : ViewModel() {
+class AddCopingStrategyViewModel @Inject constructor(private val copingStrategyRepository: CopingStrategyRepository) : ViewModel() {
 
     private var _onLoading by mutableStateOf(false)
     val onLoading: Boolean = _onLoading
@@ -20,7 +20,7 @@ class AddCopingStrategyViewModel @Inject constructor(private val repository: Cop
     fun newCopingStrategy(title: String, description: String, energyLevel: EnergyLevel) {
         viewModelScope.launch {
             _onLoading = true
-            repository.createAndInsertCopingStrategy(title, description, energyLevel)
+            copingStrategyRepository.createAndInsert(title, description, energyLevel)
             _onLoading = false
         }
     }

@@ -10,4 +10,10 @@
     <string name="descr">Description</string>
     <string name="energy_level">Energy Level</string>
     <string name="save">Save</string>
+
+    <string name="coping_strategy_list_empty_placeholder_text">You have not created any Coping Strategies yet.\nAdd one by clicking this button.</string>
+    <string name="coping_strategy_list_empty_placeholder_add_button_text">Add a coping strategy</string>
+
+    <string name="example_coping_strategy_title">Example Coping Strategy</string>
+    <string name="example_coping_strategy_description">We have not found a coping strategy for this energy level.\n\nPlease add your own coping strategies through the Add Coping Strategy mechanism in the drawer.\n\nExamples for coping strategies could be:\n - Go for a walk\n - Pet my pet\n - Watch an episode of my favorite TV-Series\n - Read five pages of a book</string>
 </resources>

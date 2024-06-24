@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EnergyLevelViewModel @Inject constructor(private val repository: EnergyLevelRecordRepository) : ViewModel() {
+class EnergyLevelViewModel @Inject constructor(private val energyLevelRecordRepository: EnergyLevelRecordRepository) : ViewModel() {
 
     private var _onLoading by mutableStateOf(false)
     val onLoading: Boolean
@@ -20,7 +20,7 @@ class EnergyLevelViewModel @Inject constructor(private val repository: EnergyLev
     fun newEnergyLevelRecord(level: Int) {
         viewModelScope.launch {
             _onLoading = true
-            repository.createAndInsertEnergyLevelRecord(level)
+            energyLevelRecordRepository.createAndInsert(level)
             _onLoading = false
         }
     }

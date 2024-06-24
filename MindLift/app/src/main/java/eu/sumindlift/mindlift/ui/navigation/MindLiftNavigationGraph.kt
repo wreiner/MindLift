@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalDrawerSheet
@@ -15,9 +16,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import eu.sumindlift.mindlift.ui.screen.AddCopingStrategyScreen
+import eu.sumindlift.mindlift.ui.screen.CopingStrategyListScreen
+import eu.sumindlift.mindlift.ui.screen.GetCopingStrategyScreen
 import eu.sumindlift.mindlift.ui.screen.HomeScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -30,7 +36,8 @@ data class DrawerMenu(
 
 val menus = arrayOf(
     DrawerMenu(Icons.Filled.Home, "Home", Screens.Home.route),
-    DrawerMenu(Icons.Filled.Add, "Add Coping Strategy", Screens.AddCopingStrategy.route)
+    DrawerMenu(Icons.Filled.Add, "Add Coping Strategy", Screens.AddCopingStrategy.route),
+    DrawerMenu(Icons.Filled.List, "List Coping Strategies", Screens.ListCopingStrategies.route)
 )
 
 @Composable
@@ -56,6 +63,7 @@ private fun DrawerContent(
 
 @Composable
 fun MindLiftNavHost(
+    copingStrategyRepository: CopingStrategyRepository,
     modifier: Modifier = Modifier,
     navController: NavHostController,
     coroutineScope: CoroutineScope,
@@ -80,10 +88,61 @@ fun MindLiftNavHost(
             modifier = modifier
         ) {
             composable(route = Screens.Home.route) {
-                HomeScreen(drawerState = drawerState, coroutineScope = coroutineScope)
+                HomeScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
+                    navController = navController
+                )
             }
+
             composable(route = Screens.AddCopingStrategy.route) {
-                AddCopingStrategyScreen(drawerState = drawerState, coroutineScope = coroutineScope)
+                AddCopingStrategyScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
+                    copingStrategyRepository = copingStrategyRepository,
+                    copingStrategyId = null
+                )
+            }
+
+            composable(
+                route = "addCopingStrategyScreen/{copingStrategyId}",
+                arguments = listOf(
+                    navArgument("copingStrategyId") { type = NavType.IntType }
+                )
+            ) { navBackStackEntry ->
+                val copingStrategyId = navBackStackEntry.arguments?.getInt("copingStrategyId")
+
+                AddCopingStrategyScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
+                    copingStrategyRepository = copingStrategyRepository,
+                    copingStrategyId = copingStrategyId
+                )
+            }
+
+            composable(
+                route = "getCopingStrategy/{energyLevel}",
+                arguments = listOf(
+                    navArgument("energyLevel") { type = NavType.IntType }
+                )
+            ) { navBackStackEntry ->
+                val energyLevel = navBackStackEntry.arguments?.getInt("energyLevel") ?: 1
+
+                GetCopingStrategyScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
+                    navController = navController,
+                    energyLevel = energyLevel
+                )
+            }
+
+            composable(route = Screens.ListCopingStrategies.route) {
+                CopingStrategyListScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
+                    copingStrategyRepository = copingStrategyRepository,
+                    navController = navController
+                )
             }
         }
     }
