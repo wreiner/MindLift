@@ -21,7 +21,7 @@ interface CopingStrategyDao {
     suspend fun loadAllByIds(ids: IntArray): List<CopingStrategy>
 
     @Query("SELECT * FROM coping_strategies WHERE energy_level = :energyLevel ORDER BY RANDOM() LIMIT 1")
-    suspend fun getRandomWithEnergyLevel(energyLevel: Int): CopingStrategy
+    suspend fun getRandomWithEnergyLevel(energyLevel: Int): CopingStrategy?
 
     @Query("SELECT * FROM coping_strategies ORDER BY RANDOM() LIMIT 1")
     suspend fun getRandom(): CopingStrategy

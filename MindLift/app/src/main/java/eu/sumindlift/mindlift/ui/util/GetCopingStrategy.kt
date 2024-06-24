@@ -30,29 +30,24 @@ fun GetCopingStrategy(
     navController: NavController,
     energyLevel: Int
 ) {
+    val defaultCopingStrategy = CopingStrategy(
+        id = 424242424,
+        title = stringResource(id = R.string.example_coping_strategy_title),
+        description = stringResource(id = R.string.example_coping_strategy_description),
+        energyLevel = EnergyLevel.LOW.getId()
+    )
+
     Column(
         modifier = modifier
             .padding(8.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        viewModel.getCopingStrategy(energyLevel)
+        viewModel.loadCopingStrategyOrElseDefault(energyLevel, defaultCopingStrategy)
         val strategy by viewModel.strategy.collectAsState()
-
-        // If the strategy is empty, set the default values
-        if (strategy.title.isEmpty() && strategy.description.isEmpty()) {
-            viewModel.setStrategy(
-                CopingStrategy(
-                    id = 424242424,
-                    title = stringResource(id = R.string.example_coping_strategy_title),
-                    description = stringResource(id = R.string.example_coping_strategy_description),
-                    energyLevel = EnergyLevel.LOW.getId()
-                )
-            )
-        }
 
         Text(
             fontWeight = FontWeight.Bold,
-                text = "Your Coping Strategy",
+            text = "Your Coping Strategy",
             style = MaterialTheme.typography.headlineSmall
         )
         Spacer(modifier = Modifier.padding(16.dp))
