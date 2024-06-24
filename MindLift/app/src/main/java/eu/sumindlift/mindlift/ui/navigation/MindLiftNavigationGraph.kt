@@ -1,5 +1,6 @@
 package eu.sumindlift.mindlift.ui.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -96,8 +97,30 @@ fun MindLiftNavHost(
                     navController = navController
                 )
             }
+
             composable(route = Screens.AddCopingStrategy.route) {
-                AddCopingStrategyScreen(drawerState = drawerState, coroutineScope = coroutineScope)
+                AddCopingStrategyScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
+                    copingStrategyRepository = copingStrategyRepository,
+                    copingStrategyId = null
+                )
+            }
+
+            composable(
+                route = "addCopingStrategyScreen/{copingStrategyId}",
+                arguments = listOf(
+                    navArgument("copingStrategyId") { type = NavType.IntType }
+                )
+            ) { navBackStackEntry ->
+                val copingStrategyId = navBackStackEntry.arguments?.getInt("copingStrategyId")
+
+                AddCopingStrategyScreen(
+                    drawerState = drawerState,
+                    coroutineScope = coroutineScope,
+                    copingStrategyRepository = copingStrategyRepository,
+                    copingStrategyId = copingStrategyId
+                )
             }
 
             composable(
@@ -107,6 +130,9 @@ fun MindLiftNavHost(
                 )
             ) { navBackStackEntry ->
                 val energyLevel = navBackStackEntry.arguments?.getInt("energyLevel") ?: 1
+
+                // FIXME remove
+                Log.d("navgrah", "-------------------- route call getCopingStrategy/${energyLevel}")
 
                 GetCopingStrategyScreen(
                     drawerState = drawerState,
@@ -120,7 +146,9 @@ fun MindLiftNavHost(
                 CopingStrategyListScreen(
                     drawerState = drawerState,
                     coroutineScope = coroutineScope,
-                    copingStrategyRepository = copingStrategyRepository)
+                    copingStrategyRepository = copingStrategyRepository,
+                    navController = navController
+                )
             }
         }
     }

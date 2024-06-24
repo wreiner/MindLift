@@ -1,5 +1,6 @@
 package eu.sumindlift.mindlift.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.Scaffold
@@ -23,6 +24,8 @@ fun GetCopingStrategyScreen(
         modifier = modifier,
         topBar = { MindLiftTopBar(drawerState, coroutineScope) }
     ) { innerPadding ->
+        // FIXME remove
+        Log.d("GetCopingStrategyScreen", "-------------------- called with ${energyLevel}")
         GetCopingStrategy(
             modifier = Modifier.padding(innerPadding),
             navController = navController,

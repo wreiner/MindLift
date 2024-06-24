@@ -1,5 +1,6 @@
 package eu.sumindlift.mindlift.ui.viewmodel
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -23,15 +24,17 @@ import eu.sumindlift.mindlift.data.entity.EnergyLevel
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class GetCopingStrategyViewModel @Inject constructor(private val repository: CopingStrategyRepository) : ViewModel() {
+class AGetCopingStrategyViewModel @Inject constructor(private val repository: CopingStrategyRepository) : ViewModel() {
 
-    var strategy : CopingStrategy = CopingStrategy(42, "example", "example", 1)
+    var strategy : CopingStrategy = CopingStrategy(42, "example", "example", EnergyLevel.LOW.getId())
     private var _onLoading by mutableStateOf(false)
     val onLoading: Boolean = _onLoading
 
@@ -41,6 +44,30 @@ class GetCopingStrategyViewModel @Inject constructor(private val repository: Cop
             val newStrategy = repository.getRandomCopingStrategyWithEnergyLevel(energyLevel) ?: null
             if (newStrategy != null) {
                 strategy = newStrategy
+            }
+            _onLoading = false
+        }
+    }
+}
+
+@OptIn(ExperimentalCoroutinesApi::class)
+@HiltViewModel
+class GetCopingStrategyViewModel @Inject constructor(private val repository: CopingStrategyRepository) : ViewModel() {
+
+    private val _strategy = MutableStateFlow(CopingStrategy(42, "example", "example", EnergyLevel.LOW.getId()))
+    val strategy: StateFlow<CopingStrategy> = _strategy
+
+    private var _onLoading by mutableStateOf(false)
+    val onLoading: Boolean = _onLoading
+
+    fun getCopingStrategy(energyLevel: Int) {
+        Log.d("GetCopingStrategyViewModel", "------------- got energylevel: ${energyLevel}")
+        viewModelScope.launch {
+            _onLoading = true
+            val newStrategy = repository.getRandomCopingStrategyWithEnergyLevel(energyLevel)
+            Log.d("GetCopingStrategyViewModel", "------------- did we select something?: ${newStrategy}")
+            if (newStrategy != null) {
+                _strategy.value = newStrategy
             }
             _onLoading = false
         }

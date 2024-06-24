@@ -1,21 +1,17 @@
 package eu.sumindlift.mindlift.ui.util
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,10 +22,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import eu.sumindlift.mindlift.R
+import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
 import eu.sumindlift.mindlift.ui.viewmodel.AddCopingStrategyViewModel
 
@@ -38,16 +34,32 @@ import eu.sumindlift.mindlift.ui.viewmodel.AddCopingStrategyViewModel
 fun AddCopingStrategy(
     modifier: Modifier = Modifier,
     viewModel: AddCopingStrategyViewModel = hiltViewModel(),
+    initialCopingStrategy: CopingStrategy? = CopingStrategy(),
+    onSave: (CopingStrategy) -> Boolean
 ) {
     Column(
         modifier = modifier
             .padding(8.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        var title by rememberSaveable { mutableStateOf("") }
-        var description by rememberSaveable { mutableStateOf("") }
-        var energyLevel by rememberSaveable { mutableStateOf(EnergyLevel.LOW) }
+        var title by rememberSaveable { mutableStateOf(initialCopingStrategy?.title ?: "") }
+        var description by rememberSaveable { mutableStateOf(initialCopingStrategy?.description ?: "") }
+        var energyLevel by rememberSaveable { mutableStateOf(initialCopingStrategy?.energyLevel ?: EnergyLevel.LOW.getId()) }
+        var showSnackbar by remember { mutableStateOf(false) }
         var expanded by remember { mutableStateOf(false) }
+
+        if (showSnackbar) {
+            Snackbar(
+                action = {
+                    TextButton(onClick = { showSnackbar = false }) {
+                        Text("OK")
+                    }
+                },
+                modifier = Modifier.padding(8.dp)
+            ) {
+                Text("Item saved successfully")
+            }
+        }
 
         Text(
             fontWeight = FontWeight.Bold,
@@ -80,32 +92,7 @@ fun AddCopingStrategy(
         Spacer(modifier = Modifier.padding(8.dp))
 
         Text(text = stringResource(id = R.string.energy_level))
-        /*Box(modifier = Modifier
-            .fillMaxSize()
-            .clickable { expanded = true }
-        ) {
-            Row {
-                Text(
-                    text = stringResource(id = energyLevel.getTitleResourceId()),
 
-                )
-            }
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                EnergyLevel.entries.forEach {
-                    DropdownMenuItem(
-                        text = { Text(stringResource(it.getTitleResourceId())) },
-                        onClick = {
-                            energyLevel = it
-                            expanded = false
-                        }
-                    )
-                }
-            }
-        }*/
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = {
@@ -116,7 +103,7 @@ fun AddCopingStrategy(
             TextField(
                 modifier = Modifier.menuAnchor().fillMaxWidth(),
                 readOnly = true,
-                value = stringResource(energyLevel.getTitleResourceId()),
+                value = stringResource(EnergyLevel.fromId(energyLevel).getTitleResourceId()),
                 onValueChange = { },
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                 colors = ExposedDropdownMenuDefaults.textFieldColors()
@@ -128,7 +115,7 @@ fun AddCopingStrategy(
                 EnergyLevel.entries.forEach { selectableEnergyLevel ->
                     DropdownMenuItem(
                         onClick = {
-                            energyLevel = selectableEnergyLevel
+                            energyLevel = selectableEnergyLevel.getId()
                             expanded = false
                         },
                         text = {
@@ -138,20 +125,32 @@ fun AddCopingStrategy(
                 }
             }
         }
+
         Spacer(modifier = Modifier.padding(8.dp))
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
             horizontalArrangement = Arrangement.Center
         ) {
+            var message by remember { mutableStateOf("") }
+
             Button(
                 onClick = {
                     if (title.isNotBlank() && description.isNotBlank()) {
-                        viewModel.newCopingStrategy(title, description, energyLevel)
+                        val newCopingStrategy = CopingStrategy(
+                            id = initialCopingStrategy?.id,
+                            title = title,
+                            description = description,
+                            energyLevel = energyLevel
+                        )
+                        val success = onSave(newCopingStrategy)
+                        message = if (success) "Item saved successfully" else "Error saving item"
+                        showSnackbar = true
                         title = ""
                         description = ""
-                        energyLevel = EnergyLevel.LOW
+                        energyLevel = EnergyLevel.LOW.getId()
                     }
                 }
             ) {
@@ -161,8 +160,8 @@ fun AddCopingStrategy(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun AddCopingStrategyPreview() {
-    AddCopingStrategy()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun AddCopingStrategyPreview() {
+//    AddCopingStrategy(initialCopingStrategy = null, onSave = null)
+//}

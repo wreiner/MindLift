@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "coping_strategies")
 data class CopingStrategy (
-    @PrimaryKey(autoGenerate = true) val id: Int?,
-    @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "energy_level") val energyLevel: Int
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
+    @ColumnInfo(name = "title") val title: String = "",
+    @ColumnInfo(name = "description") val description: String = "",
+    @ColumnInfo(name = "energy_level") val energyLevel: Int = EnergyLevel.LOW.getId()
 )

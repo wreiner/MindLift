@@ -1,5 +1,6 @@
 package eu.sumindlift.mindlift.ui.util
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,7 +53,9 @@ fun CopingStrategyListCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier
+        modifier = modifier.clickable{
+            navController.navigate("addCopingStrategyScreen/${copingStrategy.id}")
+        }
     ) {
         Row (
             modifier = Modifier.fillMaxSize(),
@@ -97,7 +100,7 @@ private fun CopingStrategyListCardPreview() {
             id = 42,
             title = "Some Title",
             description = "Some Description\nwith a newline",
-            energyLevel = 1
+            energyLevel = EnergyLevel.LOW.getId()
         )
     )
 }

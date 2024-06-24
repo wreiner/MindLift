@@ -20,13 +20,14 @@ enum class EnergyLevel {
         override fun getBatteryLevel(): Int = 100
     };
 
-    abstract fun getId(): Int;
-    abstract fun getTitleResourceId(): Int;
-    abstract fun getBatteryLevel(): Int;
+    abstract fun getId(): Int
+    abstract fun getTitleResourceId(): Int
+    abstract fun getBatteryLevel(): Int
 
     companion object {
         fun fromId(id: Int): EnergyLevel {
             return entries.first { it.getId() == id }
         }
     }
+
 }

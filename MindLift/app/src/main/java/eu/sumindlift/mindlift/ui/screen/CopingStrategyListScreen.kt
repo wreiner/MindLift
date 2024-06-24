@@ -5,6 +5,7 @@ import androidx.compose.material3.DrawerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
@@ -18,7 +19,8 @@ fun CopingStrategyListScreen(
     modifier: Modifier = Modifier,
     drawerState: DrawerState,
     coroutineScope: CoroutineScope,
-    copingStrategyRepository: CopingStrategyRepository
+    copingStrategyRepository: CopingStrategyRepository,
+    navController: NavController
 ) {
     Scaffold(
         modifier = modifier,
@@ -26,7 +28,7 @@ fun CopingStrategyListScreen(
     ) { innerPadding ->
         CopingStrategiesList(
             modifier = Modifier.padding(innerPadding),
-            navController = rememberNavController(),
+            navController = navController,
             copingStrategyRepository = copingStrategyRepository
         )
     }

@@ -28,6 +28,28 @@ class CopingStrategyRepository @Inject constructor(private val copingStrategyDao
             description,
             energyLevel.getId()
         )
-        return copingStrategyDao.insert(copingStrategy)
+        return copingStrategyDao.insertCopingStrategy(copingStrategy)
+    }
+
+    fun getCopingStrategy(id: Int): Flow<CopingStrategy> {
+        return copingStrategyDao.getCopingStrategy(id)
+    }
+
+    suspend fun insertCopingStrategy(copingStrategy: CopingStrategy): Boolean {
+        return try {
+            copingStrategyDao.insertCopingStrategy(copingStrategy)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun updateCopingStrategy(copingStrategy: CopingStrategy): Boolean {
+        return try {
+            copingStrategyDao.updateCopingStrategy(copingStrategy)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 }

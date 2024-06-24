@@ -25,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,8 +57,12 @@ fun GetCopingStrategy(
             .padding(8.dp)
             .verticalScroll(rememberScrollState())
     ) {
+        // FIXME remove
+        Log.d("GetCopingStrategy", "-------------------- called with ${energyLevel}")
         viewModel.getCopingStrategy(energyLevel)
-        val strategy = viewModel.strategy
+        val strategy by viewModel.strategy.collectAsState()
+        // FIXME remove
+        Log.d("GetCopingStrategy", "-------------------- ${strategy.title}")
 
         Text(
             fontWeight = FontWeight.Bold,
@@ -75,5 +80,5 @@ fun GetCopingStrategy(
 @Composable
 fun GetCopingStrategyPreview() {
     val navController = rememberNavController()
-    GetCopingStrategy(navController = navController, energyLevel = 1)
+    GetCopingStrategy(navController = navController, energyLevel = EnergyLevel.LOW.getId())
 }
