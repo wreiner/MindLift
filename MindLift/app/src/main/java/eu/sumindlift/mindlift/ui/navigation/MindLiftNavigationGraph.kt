@@ -131,9 +131,6 @@ fun MindLiftNavHost(
             ) { navBackStackEntry ->
                 val energyLevel = navBackStackEntry.arguments?.getInt("energyLevel") ?: 1
 
-                // FIXME remove
-                Log.d("navgrah", "-------------------- route call getCopingStrategy/${energyLevel}")
-
                 GetCopingStrategyScreen(
                     drawerState = drawerState,
                     coroutineScope = coroutineScope,

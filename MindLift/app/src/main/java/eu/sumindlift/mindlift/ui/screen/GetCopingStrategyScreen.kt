@@ -24,8 +24,6 @@ fun GetCopingStrategyScreen(
         modifier = modifier,
         topBar = { MindLiftTopBar(drawerState, coroutineScope) }
     ) { innerPadding ->
-        // FIXME remove
-        Log.d("GetCopingStrategyScreen", "-------------------- called with ${energyLevel}")
         GetCopingStrategy(
             modifier = Modifier.padding(innerPadding),
             navController = navController,

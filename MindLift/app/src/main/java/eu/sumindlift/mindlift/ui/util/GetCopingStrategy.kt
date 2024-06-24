@@ -57,12 +57,8 @@ fun GetCopingStrategy(
             .padding(8.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        // FIXME remove
-        Log.d("GetCopingStrategy", "-------------------- called with ${energyLevel}")
         viewModel.getCopingStrategy(energyLevel)
         val strategy by viewModel.strategy.collectAsState()
-        // FIXME remove
-        Log.d("GetCopingStrategy", "-------------------- ${strategy.title}")
 
         Text(
             fontWeight = FontWeight.Bold,
