@@ -18,6 +18,10 @@ class ViewModelFactory(
             return modelClass.getDeclaredConstructor(AddCopingStrategyViewModel::class.java)
                 .newInstance(copingStrategyRepository)
         }
+        if (modelClass.isAssignableFrom(GetCopingStrategyViewModel::class.java)) {
+            return modelClass.getDeclaredConstructor(GetCopingStrategyViewModel::class.java)
+                .newInstance(copingStrategyRepository)
+        }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }
 }
