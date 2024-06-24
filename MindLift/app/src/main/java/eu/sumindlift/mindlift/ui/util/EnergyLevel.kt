@@ -28,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import eu.sumindlift.mindlift.R
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
+import eu.sumindlift.mindlift.ui.navigation.Screens
 import eu.sumindlift.mindlift.ui.theme.MindLiftTheme
 import eu.sumindlift.mindlift.ui.viewmodel.EnergyLevelViewModel
 
@@ -60,7 +61,7 @@ fun EnergyLevelChooser(
                 energyLevel = it.getBatteryLevel(),
                 onClick = {
                     energyLevelViewModel.newEnergyLevelRecord(it.getId())
-                    navController.navigate("getCopingStrategy/${it.getId()}")
+                    navController.navigate("${Screens.GetCopingStrategy.route}/${it.getId()}")
                 }
             )
         }
