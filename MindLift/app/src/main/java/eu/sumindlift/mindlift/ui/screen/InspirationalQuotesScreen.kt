@@ -6,8 +6,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
-import eu.sumindlift.mindlift.ui.util.CopingStrategiesList
 import eu.sumindlift.mindlift.ui.util.InspirationalQuotes
 import eu.sumindlift.mindlift.ui.util.MindLiftTopBar
 import kotlinx.coroutines.CoroutineScope

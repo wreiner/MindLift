@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.sumindlift.mindlift.api.Quote
 import eu.sumindlift.mindlift.api.RetrofitInstance
-import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

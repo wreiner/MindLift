@@ -4,7 +4,6 @@ import eu.sumindlift.mindlift.data.dao.EnergyLevelRecordDao
 import eu.sumindlift.mindlift.data.entity.EnergyLevelRecord
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import javax.inject.Inject
 
 class EnergyLevelRecordRepository @Inject constructor(private val energyLevelRecordDao: EnergyLevelRecordDao) {
