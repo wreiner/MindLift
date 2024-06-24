@@ -11,9 +11,6 @@ interface EnergyLevelRecordDao {
     @Query("SELECT * FROM energy_level_records")
     suspend fun getAll(): List<EnergyLevelRecord>
 
-    @Query("SELECT * FROM energy_level_records WHERE id IN (:ids)")
-    suspend fun loadAllByIds(ids: IntArray): List<EnergyLevelRecord>
-
     @Insert
     suspend fun insert(energyLevelRecord: EnergyLevelRecord)
 

@@ -13,40 +13,40 @@ class CopingStrategyRepository @Inject constructor(private val copingStrategyDao
         return copingStrategyDao.getAll()
     }
 
-    suspend fun getRandomCopingStrategyWithEnergyLevel(energyLevel: Int): CopingStrategy? {
-        return copingStrategyDao.getRandomWithEnergyLevel(energyLevel)
+    suspend fun getRandomByEnergyLevel(energyLevel: Int): CopingStrategy? {
+        return copingStrategyDao.getRandomByEnergyLevel(energyLevel)
     }
 
-    suspend fun getRandomCopingStrategy(): CopingStrategy {
+    suspend fun getRandom(): CopingStrategy? {
         return copingStrategyDao.getRandom()
     }
 
-    suspend fun createAndInsertCopingStrategy(title: String, description: String, energyLevel: EnergyLevel) {
+    suspend fun createAndInsert(title: String, description: String, energyLevel: EnergyLevel) {
         val copingStrategy = CopingStrategy(
             null,
             title,
             description,
             energyLevel.getId()
         )
-        return copingStrategyDao.insertCopingStrategy(copingStrategy)
+        return copingStrategyDao.insert(copingStrategy)
     }
 
-    fun getCopingStrategy(id: Int): Flow<CopingStrategy> {
-        return copingStrategyDao.getCopingStrategy(id)
+    fun getById(id: Int): Flow<CopingStrategy> {
+        return copingStrategyDao.getById(id)
     }
 
-    suspend fun insertCopingStrategy(copingStrategy: CopingStrategy): Boolean {
+    suspend fun insert(copingStrategy: CopingStrategy): Boolean {
         return try {
-            copingStrategyDao.insertCopingStrategy(copingStrategy)
+            copingStrategyDao.insert(copingStrategy)
             true
         } catch (e: Exception) {
             false
         }
     }
 
-    suspend fun updateCopingStrategy(copingStrategy: CopingStrategy): Boolean {
+    suspend fun update(copingStrategy: CopingStrategy): Boolean {
         return try {
-            copingStrategyDao.updateCopingStrategy(copingStrategy)
+            copingStrategyDao.update(copingStrategy)
             true
         } catch (e: Exception) {
             false

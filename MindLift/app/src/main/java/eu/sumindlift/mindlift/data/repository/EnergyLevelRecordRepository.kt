@@ -10,7 +10,7 @@ class EnergyLevelRecordRepository @Inject constructor(private val energyLevelRec
         return energyLevelRecordDao.getAll()
     }
 
-    suspend fun createAndInsertEnergyLevelRecord(level: Int) {
+    suspend fun createAndInsert(level: Int) {
         val energyLevelRecord = EnergyLevelRecord(
             null,
             level,

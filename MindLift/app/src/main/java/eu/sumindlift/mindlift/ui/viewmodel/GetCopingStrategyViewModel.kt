@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GetCopingStrategyViewModel @Inject constructor(private val repository: CopingStrategyRepository) : ViewModel() {
+class GetCopingStrategyViewModel @Inject constructor(private val copingStrategyRepository: CopingStrategyRepository) : ViewModel() {
 
     private val _strategy = MutableStateFlow(CopingStrategy())
     val strategy: StateFlow<CopingStrategy> = _strategy
@@ -25,7 +25,7 @@ class GetCopingStrategyViewModel @Inject constructor(private val repository: Cop
     fun loadCopingStrategyOrElseDefault(energyLevel: Int, defaultCopingStrategy: CopingStrategy) {
         viewModelScope.launch {
             _onLoading = true
-            val newStrategy = repository.getRandomCopingStrategyWithEnergyLevel(energyLevel) ?: defaultCopingStrategy
+            val newStrategy = copingStrategyRepository.getRandomByEnergyLevel(energyLevel) ?: defaultCopingStrategy
             _strategy.value = newStrategy
             _onLoading = false
         }

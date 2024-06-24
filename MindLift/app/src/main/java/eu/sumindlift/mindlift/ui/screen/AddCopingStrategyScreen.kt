@@ -27,7 +27,7 @@ fun AddCopingStrategyScreen(
 
     val copingStrategy by (
             copingStrategyId?.let {
-                copingStrategyRepository.getCopingStrategy(it)
+                copingStrategyRepository.getById(it)
             } ?: flowOf(null)
         ).collectAsState(initial = null)
 
@@ -45,7 +45,7 @@ fun AddCopingStrategyScreen(
                 onSave = { updatedCopingStrategy ->
                     var success = false
                     coroutineScope.launch {
-                        success = copingStrategyRepository.updateCopingStrategy(updatedCopingStrategy)
+                        success = copingStrategyRepository.update(updatedCopingStrategy)
                     }
                     success
                 }
@@ -57,7 +57,7 @@ fun AddCopingStrategyScreen(
                 onSave = { newCopingStrategy ->
                     var success = false
                     coroutineScope.launch {
-                        success = copingStrategyRepository.insertCopingStrategy(newCopingStrategy)
+                        success = copingStrategyRepository.insert(newCopingStrategy)
                     }
                     success
                 }

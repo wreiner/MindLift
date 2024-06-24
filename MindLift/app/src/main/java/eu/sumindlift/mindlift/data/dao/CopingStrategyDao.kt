@@ -17,23 +17,20 @@ interface CopingStrategyDao {
     @Query("SELECT * FROM coping_strategies")
     suspend fun getAll(): List<CopingStrategy>
 
-    @Query("SELECT * FROM coping_strategies WHERE id IN (:ids)")
-    suspend fun loadAllByIds(ids: IntArray): List<CopingStrategy>
-
     @Query("SELECT * FROM coping_strategies WHERE energy_level = :energyLevel ORDER BY RANDOM() LIMIT 1")
-    suspend fun getRandomWithEnergyLevel(energyLevel: Int): CopingStrategy?
+    suspend fun getRandomByEnergyLevel(energyLevel: Int): CopingStrategy?
 
     @Query("SELECT * FROM coping_strategies ORDER BY RANDOM() LIMIT 1")
-    suspend fun getRandom(): CopingStrategy
+    suspend fun getRandom(): CopingStrategy?
 
     @Query("SELECT * FROM coping_strategies WHERE id = :id")
-    fun getCopingStrategy(id: Int): Flow<CopingStrategy>
+    fun getById(id: Int): Flow<CopingStrategy>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCopingStrategy(copingStrategy: CopingStrategy)
+    suspend fun insert(copingStrategy: CopingStrategy)
 
     @Update
-    suspend fun updateCopingStrategy(copingStrategy: CopingStrategy)
+    suspend fun update(copingStrategy: CopingStrategy)
 
     @Delete
     suspend fun delete(copingStrategy: CopingStrategy)
