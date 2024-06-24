@@ -17,4 +17,5 @@
     <string name="example_coping_strategy_title">Example Coping Strategy</string>
     <string name="example_coping_strategy_description">We have not found a coping strategy for this energy level.\n\nPlease add your own coping strategies through the Add Coping Strategy mechanism in the drawer.\n\nExamples for coping strategies could be:\n - Go for a walk\n - Pet my pet\n - Watch an episode of my favorite TV-Series\n - Read five pages of a book</string>
     <string name="energy_level_record_progress">Energy Level Progress</string>
+    <string name="inspirational_quote">Inspirational Quote</string>
 </resources>
