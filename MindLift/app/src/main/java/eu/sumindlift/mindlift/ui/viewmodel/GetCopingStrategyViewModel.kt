@@ -32,26 +32,6 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class AGetCopingStrategyViewModel @Inject constructor(private val repository: CopingStrategyRepository) : ViewModel() {
-
-    var strategy : CopingStrategy = CopingStrategy(42, "example", "example", EnergyLevel.LOW.getId())
-    private var _onLoading by mutableStateOf(false)
-    val onLoading: Boolean = _onLoading
-
-    fun getCopingStrategy(energyLevel: Int) {
-        viewModelScope.launch {
-            _onLoading = true
-            val newStrategy = repository.getRandomCopingStrategyWithEnergyLevel(energyLevel) ?: null
-            if (newStrategy != null) {
-                strategy = newStrategy
-            }
-            _onLoading = false
-        }
-    }
-}
-
-@OptIn(ExperimentalCoroutinesApi::class)
-@HiltViewModel
 class GetCopingStrategyViewModel @Inject constructor(private val repository: CopingStrategyRepository) : ViewModel() {
 
     private val _strategy = MutableStateFlow(CopingStrategy(42, "example", "example", EnergyLevel.LOW.getId()))
@@ -61,11 +41,10 @@ class GetCopingStrategyViewModel @Inject constructor(private val repository: Cop
     val onLoading: Boolean = _onLoading
 
     fun getCopingStrategy(energyLevel: Int) {
-        Log.d("GetCopingStrategyViewModel", "------------- got energylevel: ${energyLevel}")
+
         viewModelScope.launch {
             _onLoading = true
             val newStrategy = repository.getRandomCopingStrategyWithEnergyLevel(energyLevel)
-            Log.d("GetCopingStrategyViewModel", "------------- did we select something?: ${newStrategy}")
             if (newStrategy != null) {
                 _strategy.value = newStrategy
             }
