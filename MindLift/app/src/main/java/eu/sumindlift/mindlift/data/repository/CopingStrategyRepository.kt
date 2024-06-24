@@ -52,4 +52,8 @@ class CopingStrategyRepository @Inject constructor(private val copingStrategyDao
             false
         }
     }
+
+    suspend fun delete(copingStrategy: CopingStrategy) {
+        copingStrategyDao.delete(copingStrategy)
+    }
 }
