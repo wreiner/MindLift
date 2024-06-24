@@ -27,12 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import eu.sumindlift.mindlift.R
-import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
-import eu.sumindlift.mindlift.ui.navigation.Screens
 import eu.sumindlift.mindlift.ui.theme.MindLiftTheme
 import eu.sumindlift.mindlift.ui.viewmodel.EnergyLevelViewModel
-import eu.sumindlift.mindlift.ui.viewmodel.GetCopingStrategyViewModel
 
 //custom color for batteriees
 val CustomRed = Color(0xFFD7504D)
