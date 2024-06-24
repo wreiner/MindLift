@@ -10,4 +10,7 @@
     <string name="descr">Description</string>
     <string name="energy_level">Energy Level</string>
     <string name="save">Save</string>
+
+    <string name="coping_strategy_list_empty_placeholder_text">You have not created any Coping Strategies yet.\nAdd one by clicking this button.</string>
+    <string name="coping_strategy_list_empty_placeholder_add_button_text">Add a coping strategy</string>
 </resources>
