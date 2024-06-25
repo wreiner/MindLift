@@ -5,4 +5,6 @@ sealed class Screens(val route: String) {
     data object AddCopingStrategy : Screens("addCopingStrategy")
     data object GetCopingStrategy : Screens("getCopingStrategy")
     data object ListCopingStrategies : Screens("listCopingStrategies")
+    data object EnergyLevelProgress : Screens("energyLevelProgress")
+    data object InspirationalQuotes : Screens("inspirationalQuotes")
 }
