@@ -1,5 +1,6 @@
 package eu.sumindlift.mindlift.ui.navigation
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -17,11 +18,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import eu.sumindlift.mindlift.R
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import eu.sumindlift.mindlift.ui.screen.AddCopingStrategyScreen
 import eu.sumindlift.mindlift.ui.screen.CopingStrategyListScreen
@@ -34,17 +38,23 @@ import kotlinx.coroutines.launch
 
 data class DrawerMenu(
     val icon: ImageVector,
-    val title: String,
+    val title: Int,
     val route: String
 )
 
 val menus = arrayOf(
-    DrawerMenu(Icons.Filled.Home, "Home", Screens.Home.route),
-    DrawerMenu(Icons.Filled.Add, "Add Coping Strategy", Screens.AddCopingStrategy.route),
-    DrawerMenu(Icons.Filled.List, "List Coping Strategies", Screens.ListCopingStrategies.route),
-    DrawerMenu(Icons.Filled.CheckCircle, "Energy Level Progress", Screens.EnergyLevelProgress.route),
-    DrawerMenu(Icons.Filled.Star, "Inspirational Quotes", Screens.InspirationalQuotes.route)
+    DrawerMenu(Icons.Filled.Home, R.string.drawer_home, Screens.Home.route),
+    DrawerMenu(Icons.Filled.Add, R.string.drawer_add_strategy, Screens.AddCopingStrategy.route),
+    DrawerMenu(Icons.Filled.List, R.string.drawer_list_strategies, Screens.ListCopingStrategies.route),
+    DrawerMenu(Icons.Filled.CheckCircle, R.string.drawer_energy_level_progress, Screens.EnergyLevelProgress.route),
+    DrawerMenu(Icons.Filled.Star, R.string.drawer_inspirational_quotes, Screens.InspirationalQuotes.route)
 )
+
+@Composable
+fun getLocalizedString(@StringRes id: Int): String {
+    val context = LocalContext.current
+    return context.getString(id)
+}
 
 @Composable
 private fun DrawerContent(
@@ -56,7 +66,7 @@ private fun DrawerContent(
     ) {
         menus.forEach {
             NavigationDrawerItem(
-                label = { Text(text = it.title) },
+                label = { Text(text = stringResource(id = it.title)) },
                 icon = { Icon(imageVector = it.icon, contentDescription = null) },
                 selected = false,
                 onClick = {
