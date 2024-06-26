@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GetCopingStrategyViewModel @Inject constructor(private val copingStrategyRepository: CopingStrategyRepository) : ViewModel() {
+class CopingStrategySuggestionViewModel @Inject constructor(private val copingStrategyRepository: CopingStrategyRepository) : ViewModel() {
 
     private val _strategy = MutableStateFlow(CopingStrategy())
     val strategy: StateFlow<CopingStrategy> = _strategy

@@ -21,12 +21,12 @@ import androidx.navigation.compose.rememberNavController
 import eu.sumindlift.mindlift.R
 import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
-import eu.sumindlift.mindlift.ui.viewmodel.GetCopingStrategyViewModel
+import eu.sumindlift.mindlift.ui.viewmodel.CopingStrategySuggestionViewModel
 
 @Composable
 fun GetCopingStrategy(
     modifier: Modifier = Modifier,
-    viewModel: GetCopingStrategyViewModel = hiltViewModel(),
+    viewModel: CopingStrategySuggestionViewModel = hiltViewModel(),
     navController: NavController,
     energyLevel: Int
 ) {

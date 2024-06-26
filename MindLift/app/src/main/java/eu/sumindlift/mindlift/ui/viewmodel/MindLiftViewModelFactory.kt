@@ -14,11 +14,11 @@ class ViewModelFactory(
             return modelClass.getDeclaredConstructor(EnergyLevelRecordRepository::class.java)
                 .newInstance(energyLevelRecordRepository)
         }
-        if (modelClass.isAssignableFrom(AddCopingStrategyViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(CopingStrategyFormViewModel::class.java)) {
             return modelClass.getDeclaredConstructor(CopingStrategyRepository::class.java)
                 .newInstance(copingStrategyRepository)
         }
-        if (modelClass.isAssignableFrom(GetCopingStrategyViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(CopingStrategySuggestionViewModel::class.java)) {
             return modelClass.getDeclaredConstructor(CopingStrategyRepository::class.java)
                 .newInstance(copingStrategyRepository)
         }
