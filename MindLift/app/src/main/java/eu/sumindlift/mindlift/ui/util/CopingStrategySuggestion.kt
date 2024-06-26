@@ -8,6 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -42,7 +43,9 @@ fun CopingStrategySuggestion(
             .padding(8.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        viewModel.loadCopingStrategyOrElseDefault(energyLevel, defaultCopingStrategy)
+        LaunchedEffect(Unit) {
+            viewModel.loadCopingStrategyOrElseDefault(energyLevel, defaultCopingStrategy)
+        }
         val strategy by viewModel.strategy.collectAsState()
 
         Text(
