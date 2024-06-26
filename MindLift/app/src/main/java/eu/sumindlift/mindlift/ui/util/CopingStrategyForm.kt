@@ -36,7 +36,7 @@ import eu.sumindlift.mindlift.ui.viewmodel.CopingStrategyFormViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddCopingStrategy(
+fun CopingStrategyForm(
     modifier: Modifier = Modifier,
     viewModel: CopingStrategyFormViewModel = hiltViewModel(),
     initialCopingStrategy: CopingStrategy? = CopingStrategy(),

@@ -24,7 +24,7 @@ import eu.sumindlift.mindlift.data.entity.EnergyLevel
 import eu.sumindlift.mindlift.ui.viewmodel.CopingStrategySuggestionViewModel
 
 @Composable
-fun GetCopingStrategy(
+fun CopingStrategySuggestion(
     modifier: Modifier = Modifier,
     viewModel: CopingStrategySuggestionViewModel = hiltViewModel(),
     navController: NavController,
@@ -61,5 +61,5 @@ fun GetCopingStrategy(
 @Composable
 fun GetCopingStrategyPreview() {
     val navController = rememberNavController()
-    GetCopingStrategy(navController = navController, energyLevel = EnergyLevel.LOW.getId())
+    CopingStrategySuggestion(navController = navController, energyLevel = EnergyLevel.LOW.getId())
 }

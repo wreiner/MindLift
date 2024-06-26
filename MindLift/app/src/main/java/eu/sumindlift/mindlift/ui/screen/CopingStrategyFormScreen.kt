@@ -9,7 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
-import eu.sumindlift.mindlift.ui.util.AddCopingStrategy
+import eu.sumindlift.mindlift.ui.util.CopingStrategyForm
 import eu.sumindlift.mindlift.ui.util.MindLiftTopBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.flowOf
@@ -39,7 +39,7 @@ fun AddCopingStrategyScreen(
     ) { innerPadding ->
         if (copingStrategy != null) {
             Log.d("AddCopingStrategyScreen", "an existing copingStrat is passed in")
-            AddCopingStrategy(
+            CopingStrategyForm(
                 modifier = Modifier.padding(innerPadding),
                 initialCopingStrategy = copingStrategy,
                 onSave = { updatedCopingStrategy ->
@@ -52,7 +52,7 @@ fun AddCopingStrategyScreen(
             )
         } else {
             Log.d("AddCopingStrategyScreen", "we need to create a new copingstrat")
-            AddCopingStrategy(
+            CopingStrategyForm(
                 modifier = Modifier.padding(innerPadding),
                 onSave = { newCopingStrategy ->
                     var success = false

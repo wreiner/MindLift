@@ -40,7 +40,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun CopingStrategiesList(
+fun CopingStrategyList(
     navController: NavController,
     copingStrategyRepository: CopingStrategyRepository,
     modifier: Modifier = Modifier

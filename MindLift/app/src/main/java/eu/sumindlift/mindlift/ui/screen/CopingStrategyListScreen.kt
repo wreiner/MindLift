@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
-import eu.sumindlift.mindlift.ui.util.CopingStrategiesList
+import eu.sumindlift.mindlift.ui.util.CopingStrategyList
 import eu.sumindlift.mindlift.ui.util.MindLiftTopBar
 import kotlinx.coroutines.CoroutineScope
 
@@ -23,7 +23,7 @@ fun CopingStrategyListScreen(
         modifier = modifier,
         topBar = { MindLiftTopBar(drawerState, coroutineScope) }
     ) { innerPadding ->
-        CopingStrategiesList(
+        CopingStrategyList(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
             copingStrategyRepository = copingStrategyRepository
