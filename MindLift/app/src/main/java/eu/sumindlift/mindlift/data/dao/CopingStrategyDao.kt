@@ -12,9 +12,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CopingStrategyDao {
     @Query("SELECT * FROM coping_strategies ORDER BY energy_level ASC")
-    fun getAllFlow(): Flow<List<CopingStrategy>>
-
-    @Query("SELECT * FROM coping_strategies")
     suspend fun getAll(): List<CopingStrategy>
 
     @Query("SELECT * FROM coping_strategies WHERE energy_level = :energyLevel ORDER BY RANDOM() LIMIT 1")

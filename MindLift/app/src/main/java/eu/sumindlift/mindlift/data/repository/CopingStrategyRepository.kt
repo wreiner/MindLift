@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CopingStrategyRepository @Inject constructor(private val copingStrategyDao: CopingStrategyDao) {
-    val allCopingStrategies: Flow<List<CopingStrategy>> = copingStrategyDao.getAllFlow()
 
     suspend fun getAll(): List<CopingStrategy> {
         return copingStrategyDao.getAll()

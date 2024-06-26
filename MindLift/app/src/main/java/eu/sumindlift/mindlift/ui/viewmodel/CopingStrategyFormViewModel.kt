@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddCopingStrategyViewModel @Inject constructor(private val copingStrategyRepository: CopingStrategyRepository) : ViewModel() {
+class CopingStrategyFormViewModel @Inject constructor(private val copingStrategyRepository: CopingStrategyRepository) : ViewModel() {
 
     private var _onLoading by mutableStateOf(false)
     val onLoading: Boolean = _onLoading

@@ -56,22 +56,26 @@ fun InspirationalQuotes(
             contentAlignment = Alignment.Center
         ) {
             Column{
-                Text(
-                    text = "\"${quote.text}\"",
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                if (quote.text.isNotBlank()) {
+                    Text(
+                        text = "\"${quote.text}\"",
+                        fontStyle = FontStyle.Italic,
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "- ${quote.author.replace(", type.fit", "")}",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                if (quote.text.isNotBlank()) {
+                    Text(
+                        text = "- ${quote.author.replace(", type.fit", "")}",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
         }
     }

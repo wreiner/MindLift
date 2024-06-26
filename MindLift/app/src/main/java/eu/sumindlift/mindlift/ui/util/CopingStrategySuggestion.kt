@@ -8,6 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,12 +22,12 @@ import androidx.navigation.compose.rememberNavController
 import eu.sumindlift.mindlift.R
 import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
-import eu.sumindlift.mindlift.ui.viewmodel.GetCopingStrategyViewModel
+import eu.sumindlift.mindlift.ui.viewmodel.CopingStrategySuggestionViewModel
 
 @Composable
-fun GetCopingStrategy(
+fun CopingStrategySuggestion(
     modifier: Modifier = Modifier,
-    viewModel: GetCopingStrategyViewModel = hiltViewModel(),
+    viewModel: CopingStrategySuggestionViewModel = hiltViewModel(),
     navController: NavController,
     energyLevel: Int
 ) {
@@ -42,7 +43,9 @@ fun GetCopingStrategy(
             .padding(8.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        viewModel.loadCopingStrategyOrElseDefault(energyLevel, defaultCopingStrategy)
+        LaunchedEffect(Unit) {
+            viewModel.loadCopingStrategyOrElseDefault(energyLevel, defaultCopingStrategy)
+        }
         val strategy by viewModel.strategy.collectAsState()
 
         Text(
@@ -61,5 +64,5 @@ fun GetCopingStrategy(
 @Composable
 fun GetCopingStrategyPreview() {
     val navController = rememberNavController()
-    GetCopingStrategy(navController = navController, energyLevel = EnergyLevel.LOW.getId())
+    CopingStrategySuggestion(navController = navController, energyLevel = EnergyLevel.LOW.getId())
 }

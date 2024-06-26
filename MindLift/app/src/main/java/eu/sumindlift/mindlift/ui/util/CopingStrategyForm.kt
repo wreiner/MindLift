@@ -32,13 +32,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import eu.sumindlift.mindlift.R
 import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
-import eu.sumindlift.mindlift.ui.viewmodel.AddCopingStrategyViewModel
+import eu.sumindlift.mindlift.ui.viewmodel.CopingStrategyFormViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddCopingStrategy(
+fun CopingStrategyForm(
     modifier: Modifier = Modifier,
-    viewModel: AddCopingStrategyViewModel = hiltViewModel(),
+    viewModel: CopingStrategyFormViewModel = hiltViewModel(),
     initialCopingStrategy: CopingStrategy? = CopingStrategy(),
     onSave: (CopingStrategy) -> Boolean
 ) {

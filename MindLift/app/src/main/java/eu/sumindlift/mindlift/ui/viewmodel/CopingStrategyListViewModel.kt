@@ -10,28 +10,30 @@ import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GetCopingStrategyViewModel @Inject constructor(private val copingStrategyRepository: CopingStrategyRepository) : ViewModel() {
+class CopingStrategyListViewModel @Inject constructor(private val copingStrategyRepository: CopingStrategyRepository) : ViewModel() {
 
-    private val _strategy = MutableStateFlow(CopingStrategy())
-    val strategy: StateFlow<CopingStrategy> = _strategy
+    private val _copingStrategies = MutableStateFlow(listOf<CopingStrategy>())
+    val copingStrategies: StateFlow<List<CopingStrategy>> = _copingStrategies
 
     private var _onLoading by mutableStateOf(false)
     val onLoading: Boolean = _onLoading
 
-    fun loadCopingStrategyOrElseDefault(energyLevel: Int, defaultCopingStrategy: CopingStrategy) {
+    suspend fun loadAllCopingStrategies() {
         viewModelScope.launch {
             _onLoading = true
-            val newStrategy = copingStrategyRepository.getRandomByEnergyLevel(energyLevel) ?: defaultCopingStrategy
-            _strategy.value = newStrategy
+            _copingStrategies.value = copingStrategyRepository.getAll()
             _onLoading = false
         }
     }
 
-    fun setStrategy(strategy: CopingStrategy) {
-        _strategy.value = strategy
+    suspend fun delete(copingStrategy: CopingStrategy) {
+        copingStrategyRepository.delete(copingStrategy)
+        _copingStrategies.update { copingStrategyRepository.getAll() }
     }
+
 }

@@ -7,16 +7,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,46 +27,64 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import eu.sumindlift.mindlift.R
 import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
-import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import eu.sumindlift.mindlift.ui.navigation.Screens
+import eu.sumindlift.mindlift.ui.viewmodel.CopingStrategyListViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun CopingStrategiesList(
+fun CopingStrategyList(
     navController: NavController,
-    copingStrategyRepository: CopingStrategyRepository,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: CopingStrategyListViewModel = hiltViewModel(),
 ) {
-    val copingStrategiesList by copingStrategyRepository.allCopingStrategies.collectAsState(initial = emptyList())
+    LaunchedEffect(Unit) {
+        viewModel.loadAllCopingStrategies()
+    }
+    val copingStrategiesList by viewModel.copingStrategies.collectAsState()
 
-    if (copingStrategiesList.isEmpty()) {
-        CopingStrategyListEmptyPlaceholder(navController, modifier)
-    } else {
-        LazyColumn(
-            modifier = modifier
-        ) {
-            items(copingStrategiesList) { copingStrategy ->
-                CopingStrategyListCard(
-                    navController = navController,
-                    copingStrategy = copingStrategy,
-                    modifier = Modifier.padding(2.dp),
-                    onDelete = { strategy ->
-                        CoroutineScope(Dispatchers.IO).launch {
-                            copingStrategyRepository.delete(strategy)
+    Column(
+        modifier = modifier.padding(12.dp)
+    ){
+        Text(
+            text = stringResource(R.string.coping_strategy_list),
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        if (copingStrategiesList.isEmpty()) {
+            CopingStrategyListEmptyPlaceholder(navController, Modifier)
+        } else {
+            LazyColumn(
+                modifier = Modifier
+            ) {
+                items(copingStrategiesList) { copingStrategy ->
+                    CopingStrategyListCard(
+                        navController = navController,
+                        copingStrategy = copingStrategy,
+                        modifier = Modifier.padding(2.dp),
+                        onDelete = { strategy ->
+                            CoroutineScope(Dispatchers.IO).launch {
+                                viewModel.delete(strategy)
+                            }
                         }
-                    }
-                )
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
         }
     }
@@ -114,7 +135,10 @@ fun CopingStrategyListCard(
                 onLongClick = {
                     showMenu = true
                 }
-            )
+            ),
+        colors = CardDefaults.cardColors(
+            containerColor = getContainerColorByEnergyLevel(copingStrategy.energyLevel)
+        )
     ) {
         Row (
             modifier = Modifier.fillMaxSize(),
@@ -125,26 +149,17 @@ fun CopingStrategyListCard(
             ) {
                 Text (
                     text = copingStrategy.title,
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, start = 12.dp),
                     style = MaterialTheme.typography.headlineSmall
                 )
 
                 Text (
                     text = copingStrategy.description,
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(bottom = 12.dp, start = 12.dp),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
             }
-
-            Text (
-                text = stringResource(
-                    id = EnergyLevel.fromId(copingStrategy.energyLevel).getTitleResourceId()
-                ),
-                modifier = Modifier
-                    .padding(start = 4.dp),
-                style = MaterialTheme.typography.labelSmall
-            )
         }
 
         DropdownMenu(
@@ -159,6 +174,15 @@ fun CopingStrategyListCard(
                 text = { Text("Delete") }
             )
         }
+    }
+}
+
+fun getContainerColorByEnergyLevel(energyLevel: Int): Color {
+    return when (energyLevel) {
+        1 -> CustomRed.copy(alpha = 0.3f)
+        2 -> CustomYellow.copy(alpha = 0.3f)
+        3 -> CustomGreen.copy(alpha = 0.3f)
+        else -> CustomGray.copy(alpha = 0.3f)
     }
 }
 
