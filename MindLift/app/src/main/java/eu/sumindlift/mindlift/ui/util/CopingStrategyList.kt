@@ -17,6 +17,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,13 +29,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import eu.sumindlift.mindlift.R
 import eu.sumindlift.mindlift.data.entity.CopingStrategy
 import eu.sumindlift.mindlift.data.entity.EnergyLevel
-import eu.sumindlift.mindlift.data.repository.CopingStrategyRepository
 import eu.sumindlift.mindlift.ui.navigation.Screens
+import eu.sumindlift.mindlift.ui.viewmodel.CopingStrategyListViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,10 +44,13 @@ import kotlinx.coroutines.launch
 @Composable
 fun CopingStrategyList(
     navController: NavController,
-    copingStrategyRepository: CopingStrategyRepository,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: CopingStrategyListViewModel = hiltViewModel(),
 ) {
-    val copingStrategiesList by copingStrategyRepository.allCopingStrategies.collectAsState(initial = emptyList())
+    val copingStrategiesList by viewModel.copingStrategies.collectAsState()
+    LaunchedEffect(copingStrategiesList) {
+        viewModel.loadAllCopingStrategies()
+    }
 
     if (copingStrategiesList.isEmpty()) {
         CopingStrategyListEmptyPlaceholder(navController, modifier)
@@ -60,7 +65,7 @@ fun CopingStrategyList(
                     modifier = Modifier.padding(2.dp),
                     onDelete = { strategy ->
                         CoroutineScope(Dispatchers.IO).launch {
-                            copingStrategyRepository.delete(strategy)
+                            viewModel.delete(strategy)
                         }
                     }
                 )

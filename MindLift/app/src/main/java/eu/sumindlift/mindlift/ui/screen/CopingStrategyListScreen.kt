@@ -26,7 +26,6 @@ fun CopingStrategyListScreen(
         CopingStrategyList(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
-            copingStrategyRepository = copingStrategyRepository
         )
     }
 }

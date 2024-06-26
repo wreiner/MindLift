@@ -26,6 +26,10 @@ class ViewModelFactory(
             return modelClass.getDeclaredConstructor(EnergyLevelRecordRepository::class.java)
                 .newInstance(energyLevelRecordRepository)
         }
+        if (modelClass.isAssignableFrom(CopingStrategyListViewModel::class.java)) {
+            return modelClass.getDeclaredConstructor(CopingStrategyRepository::class.java)
+                .newInstance(copingStrategyRepository)
+        }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }
 }
