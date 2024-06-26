@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MindLift</string>
+    <string name="low_energy">Niedrige Energie</string>
+    <string name="half_energy">Halbe Energie</string>
+    <string name="high_energy">Hohe Energie</string>
+    <string name="feeling_q">Wie geht es dir heute?</string>
+    <string name="add_strategy">Deine Bewältigungsstrategie hinzufügen</string>
+    <string name="add_strat_title">Titel</string>
+    <string name="descr">Beschreibung</string>
+    <string name="energy_level">Energielevel</string>
+    <string name="save">Speichern</string>
+    <string name="coping_strategy_list_empty_placeholder_text">Du hast noch keine Bewältigungsstrategien hinterlegt.\nKlicke den Button um eine  Bewältigungsstrategie anzulegen.</string>
+    <string name="coping_strategy_list_empty_placeholder_add_button_text">Eine Bewältigungsstrategie hinzufügen</string>
+    <string name="example_coping_strategy_title">Beispiel für eine Bewältigungsstrategie</string>
+    <string name="example_coping_strategy_description">Wir konnten keine Bewältigungsstrategie für dieses Energielevel finden. Bitte füge deine Bewältigungsstrategien durch das Seitenmenü hinzu.\n\nHier ein paar Beispiele für Bewältigungsstrategien:\n - Gehe spazieren\n - Kuschel mit deinem Haustier\n - Sieh dir eine Folge deiner Lieblingsserie an\n - Lies fünf Seiten eine s Buches</string>
+    <string name="energy_level_record_progress">Energielevel Übersicht</string>
+    <string name="inspirational_quote">Inspirierendes Zitat</string>
+    <string name="drawer_home">Home</string>
+    <string name="drawer_add_strategy">Bewältigungsstrategie hinzufügen</string>
+    <string name="drawer_list_strategies">Liste aller Bewältigungsstrategien</string>
+    <string name="drawer_energy_level_progress">Energielevel Übersicht</string>
+    <string name="drawer_inspirational_quotes">Inspirierendes Zitat</string>
+</resources>

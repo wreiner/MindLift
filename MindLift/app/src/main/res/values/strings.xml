@@ -15,8 +15,15 @@
     <string name="coping_strategy_list_empty_placeholder_add_button_text">Add a coping strategy</string>
 
     <string name="example_coping_strategy_title">Example Coping Strategy</string>
-    <string name="example_coping_strategy_description">We have not found a coping strategy for this energy level.\n\nPlease add your own coping strategies through the Add Coping Strategy mechanism in the drawer.\n\nExamples for coping strategies could be:\n - Go for a walk\n - Pet my pet\n - Watch an episode of my favorite TV-Series\n - Read five pages of a book</string>
+    <string name="example_coping_strategy_description">We have not found a coping strategy for this energy level.  Please add your own coping strategies through the Add Coping Strategy mechanism in the side menu.  Examples for coping strategies could be:  - Go for a walk  - Pet my pet  - Watch an episode of my favorite TV-Series  - Read five pages of a book</string>
     <string name="energy_level_record_progress">Energy Level Progress</string>
     <string name="inspirational_quote">Inspirational Quote</string>
+
+    <string name="drawer_home">Home</string>
+    <string name="drawer_add_strategy">Add Coping Strategy</string>
+    <string name="drawer_list_strategies">List Coping Strategies</string>
+    <string name="drawer_energy_level_progress">Energy Level Progress</string>
+    <string name="drawer_inspirational_quotes">Inspirational Quotes</string>
+
     <string name="coping_strategy_list">Coping Strategy List</string>
 </resources>
