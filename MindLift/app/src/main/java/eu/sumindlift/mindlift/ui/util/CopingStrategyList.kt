@@ -47,10 +47,10 @@ fun CopingStrategyList(
     modifier: Modifier = Modifier,
     viewModel: CopingStrategyListViewModel = hiltViewModel(),
 ) {
-    val copingStrategiesList by viewModel.copingStrategies.collectAsState()
-    LaunchedEffect(copingStrategiesList) {
+    LaunchedEffect(Unit) {
         viewModel.loadAllCopingStrategies()
     }
+    val copingStrategiesList by viewModel.copingStrategies.collectAsState()
 
     if (copingStrategiesList.isEmpty()) {
         CopingStrategyListEmptyPlaceholder(navController, modifier)
