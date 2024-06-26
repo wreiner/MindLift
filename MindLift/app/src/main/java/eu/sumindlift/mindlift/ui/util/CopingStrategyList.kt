@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -81,6 +83,7 @@ fun CopingStrategyList(
                             }
                         }
                     )
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }
@@ -132,7 +135,10 @@ fun CopingStrategyListCard(
                 onLongClick = {
                     showMenu = true
                 }
-            )
+            ),
+        colors = CardDefaults.cardColors(
+            containerColor = getContainerColorByEnergyLevel(copingStrategy.energyLevel)
+        )
     ) {
         Row (
             modifier = Modifier.fillMaxSize(),
@@ -143,26 +149,17 @@ fun CopingStrategyListCard(
             ) {
                 Text (
                     text = copingStrategy.title,
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, start = 12.dp),
                     style = MaterialTheme.typography.headlineSmall
                 )
 
                 Text (
                     text = copingStrategy.description,
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(bottom = 12.dp, start = 12.dp),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
             }
-
-            Text (
-                text = stringResource(
-                    id = EnergyLevel.fromId(copingStrategy.energyLevel).getTitleResourceId()
-                ),
-                modifier = Modifier
-                    .padding(start = 4.dp),
-                style = MaterialTheme.typography.labelSmall
-            )
         }
 
         DropdownMenu(
@@ -177,6 +174,15 @@ fun CopingStrategyListCard(
                 text = { Text("Delete") }
             )
         }
+    }
+}
+
+fun getContainerColorByEnergyLevel(energyLevel: Int): Color {
+    return when (energyLevel) {
+        1 -> CustomRed.copy(alpha = 0.3f)
+        2 -> CustomYellow.copy(alpha = 0.3f)
+        3 -> CustomGreen.copy(alpha = 0.3f)
+        else -> CustomGray.copy(alpha = 0.3f)
     }
 }
 
